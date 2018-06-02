@@ -7,7 +7,7 @@ Your task is to write a web service that navigates an imaginary robotic oil spil
 * The initial cleaner position (X and Y coordinates like patches of oil)
 * Navigation instructions (as [cardinal directions](https://en.wikipedia.org/wiki/Cardinal_direction) where e.g. `N` and `E` mean "go north" and "go east" respectively)
 * The tide does not impact this simulation - the patches of oil remain in the same place throughout the execution of the program.
-* The area will be rectangular, has no obstacles and all locations in the area will be clean (cleaning has no effect) except for the locations of the patches of dirt presented in the program input.
+* The area will be rectangular, has no obstacles and all locations in the area will be clean (cleaning has no effect) except for the locations of the patches of oil presented in the program input.
 * Navigating the cleaner onto a patch of oil removes the oil so that patch is then clean for the remainder of the program run. The cleaner is always on - there is no need to enable it.
 * In the program input attempts to navigate the cleaner outside of the boundary of the defined area an appropriate error should be returned.
 
