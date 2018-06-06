@@ -1,7 +1,8 @@
 # Marshmallow Java Backend Test
 
-Your task is to write a web service that navigates an imaginary robotic oil spill cleaner through an oil spill in the sea based on:
+Your task is to write a Java based web service that navigates an imaginary robotic cleaner through an oil spill in the sea.
 
+## Context
 * Sea area dimensions as [X and Y coordinates](https://en.wikipedia.org/wiki/Cartesian_coordinate_system), identifying the top right corner of the area rectangle. This area is divided up into a grid using these dimensions; an area that has dimensions `X: 5` and `Y: 5` has 5 columns and 5 rows, so 25 possible cleaner positions. The bottom left corner is the point of origin for our coordinate system, so the bottom left corner of the area is defined by `X: 0` and `Y: 0`.
 * Locations of patches of oil, also defined by `X` and `Y` coordinates identifying the bottom left corner of those grid positions.
 * The initial cleaner position (X and Y coordinates like patches of oil)
