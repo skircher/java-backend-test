@@ -1,0 +1,795 @@
+{
+	"info": {
+		"_postman_id": "f72b9a3a-45e8-4fb6-9370-7225ff01172a",
+		"name": "Mashmallow Demo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Example",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8bb8d3fd-984d-4480-8544-ec352478f712",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.variables.get(\"oilPatchesCleaned\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"areaSize\" : [5, 5],\n  \"startingPosition\" : [1, 2],\n  \"oilPatches\" : [\n    [1, 0],\n    [2, 2],\n    [2, 3]\n  ],\n  \"navigationInstructions\" : \"NNESEESWNWW\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/cleaner",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"cleaner"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AnotherHappyPath",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a0288717-8f41-4e20-9bf7-1b5daecfd7c0",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"areaSize\" : [10, 10],\n  \"startingPosition\" : [5, 5],\n  \"oilPatches\" : [\n    [1, 0],\n    [2, 2],\n    [2, 3],\n    [4, 6],\n    [9, 9],\n    [3, 9],\n    [2, 7]\n  ],\n  \"navigationInstructions\" : \"NSSWWWEEWWSSSNSNWEEESEESWNWW\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/cleaner",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"cleaner"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "No Oil Happy Path",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ed9b38d4-4f51-4389-af62-a4a0ace70ef1",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"areaSize\" : [10, 10],\n  \"startingPosition\" : [5, 5],\n  \"oilPatches\" : [\n  ],\n  \"navigationInstructions\" : \"NNSWEESWW\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/cleaner",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"cleaner"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Invalid areaSize Structure",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "068c45b2-1329-4bfd-bc48-d4b0c2d4419e",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"areaSize\" : [10, 10, 10],\n  \"startingPosition\" : [5, 5],\n  \"oilPatches\" : [\n    [1, 0],\n    [2, 2],\n    [2, 3],\n    [4, 6],\n    [9, 9],\n    [3, 9],\n    [2, 7]\n  ],\n  \"navigationInstructions\" : \"NSWE\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/cleaner",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"cleaner"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Invalid areaSize Structure 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "068c45b2-1329-4bfd-bc48-d4b0c2d4419e",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"areaSize\" : [10, 10, 10],\n  \"startingPosition\" : [5, 5],\n  \"oilPatches\" : [\n    [1, 0],\n    [2, 2],\n    [2, 3],\n    [4, 6],\n    [9, 9],\n    [3, 9],\n    [2, 7]\n  ],\n  \"navigationInstructions\" : \"NSWE\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/cleaner",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"cleaner"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Invalid areaSize Data Type",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "13193fbb-8740-4d23-a200-1de431d4572d",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"areaSize\" : [\"A\", 10],\n  \"startingPosition\" : [5, 5],\n  \"oilPatches\" : [\n    [1, 0],\n    [2, 2],\n    [2, 3]\n  ],\n  \"navigationInstructions\" : \"SNEESN\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/cleaner",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"cleaner"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Invalid startingPosition Structure",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "efa6e9b5-36b1-4dfb-ac25-d16fc3eeead0",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"areaSize\" : [10, 10],\n  \"startingPosition\" : [5, 5, 5],\n  \"oilPatches\" : [\n    [1, 0],\n    [2, 2],\n    [2, 3],\n    [4, 6],\n    [9, 9],\n    [3, 9],\n    [2, 7]\n  ],\n  \"navigationInstructions\" : \"NSSWWWEEWWSSSNSNWEEESEESWNWW\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/cleaner",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"cleaner"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Invalid startingPosition Structure 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "efa6e9b5-36b1-4dfb-ac25-d16fc3eeead0",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"areaSize\" : [10, 10],\n  \"startingPosition\" : [5, 5, 5],\n  \"oilPatches\" : [\n    [1, 0],\n    [2, 2],\n    [2, 3],\n    [4, 6],\n    [9, 9],\n    [3, 9],\n    [2, 7]\n  ],\n  \"navigationInstructions\" : \"NSSWWWEEWWSSSNSNWEEESEESWNWW\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/cleaner",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"cleaner"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Invalid startingPosition Data Type",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "265cec7d-38d9-40d5-8c84-5094e04a314f",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"areaSize\" : [10, 10],\n  \"startingPosition\" : [\"A\", 5],\n  \"oilPatches\" : [\n    [1, 0],\n    [2, 2],\n    [2, 3],\n    [4, 6],\n    [9, 9],\n    [3, 9],\n    [2, 7]\n  ],\n  \"navigationInstructions\" : \"NSSWWWEEWWSSSNSNWEEESEESWNWW\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/cleaner",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"cleaner"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Invalid oilPatches",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0c5a8535-3a71-4283-8638-299b1167c83c",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"areaSize\" : [10, 10],\n  \"startingPosition\" : [5, 5],\n  \"oilPatches\" : [\n    [1, 0, 1],\n    [2, 2],\n    [2, 3],\n    [4, 6],\n    [9, 9],\n    [3, 9],\n    [2, 7]\n  ],\n  \"navigationInstructions\" : \"NNSN\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/cleaner",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"cleaner"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Invalid navigationInstructions",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "11256cb8-cd31-4b78-9cbc-9b3b15e7fefa",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"areaSize\" : [10, 10],\n  \"startingPosition\" : [5, 5],\n  \"oilPatches\" : [\n    [1, 0],\n    [2, 2],\n    [2, 3],\n    [4, 6],\n    [9, 9],\n    [3, 9],\n    [2, 7]\n  ],\n  \"navigationInstructions\" : \"YEAH\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/cleaner",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"cleaner"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Invalid navigationInstructions 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "11256cb8-cd31-4b78-9cbc-9b3b15e7fefa",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"areaSize\" : [10, 10],\n  \"startingPosition\" : [5, 5],\n  \"oilPatches\" : [\n    [1, 0],\n    [2, 2],\n    [2, 3],\n    [4, 6],\n    [9, 9],\n    [3, 9],\n    [2, 7]\n  ],\n  \"navigationInstructions\" : \"YEAH\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/cleaner",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"cleaner"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "No areaSize Provided",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9a0999f0-28bd-49a3-81b6-73f616d84931",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"startingPosition\" : [5, 5],\n  \"oilPatches\" : [\n    [1, 0],\n    [2, 2],\n    [2, 3],\n    [4, 6],\n    [9, 9],\n    [3, 9],\n    [2, 7]\n  ],\n  \"navigationInstructions\" : \"NSSWWWEEWWSSSNSNWEEESEESWNWW\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/cleaner",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"cleaner"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "No startingPosition Provided",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ba63fac0-8d8f-4e11-9389-f6c0a59555f4",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"areaSize\" : [10, 10],\n  \"oilPatches\" : [\n    [1, 0],\n    [2, 2],\n    [2, 3],\n    [4, 6],\n    [9, 9],\n    [3, 9],\n    [2, 7]\n  ],\n  \"navigationInstructions\" : \"NSSWWWEEWWSSSNSNWEEESEESWNWW\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/cleaner",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"cleaner"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Empty navigationInstructions",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ba63fac0-8d8f-4e11-9389-f6c0a59555f4",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"startingPosition\" : [5, 5],\n  \"areaSize\" : [10, 10],\n  \"oilPatches\" : [\n    [1, 0],\n    [2, 2],\n    [2, 3],\n    [4, 6],\n    [9, 9],\n    [3, 9],\n    [2, 7]\n  ],\n  \"navigationInstructions\" : \"\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/cleaner",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"cleaner"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Navigating Out of Bounds",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "59437eb5-241e-4d45-a3e4-e8ef445e9054",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"areaSize\" : [10, 10],\n  \"startingPosition\" : [1, 2],\n  \"oilPatches\" : [\n    [1, 0],\n    [2, 2],\n    [2, 3],\n    [4, 6],\n    [9, 9],\n    [3, 9],\n    [2, 7]\n  ],\n  \"navigationInstructions\" : \"SSSS\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/cleaner",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"cleaner"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

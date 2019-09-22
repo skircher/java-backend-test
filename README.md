@@ -1,79 +1,77 @@
-# Marshmallow Java Backend Test
+# Robotic Cleaner API
 
-Your task is to write a Java based web service that navigates an imaginary robotic cleaner through an oil spill in the sea.
+## Table of Contents
 
-## Context
-* Sea area dimensions as [X and Y coordinates](https://en.wikipedia.org/wiki/Cartesian_coordinate_system), identifying the top right corner of the area rectangle. This area is divided up into a grid using these dimensions; an area that has dimensions `X: 5` and `Y: 5` has 5 columns and 5 rows, so 25 possible cleaner positions. The bottom left corner is the point of origin for our coordinate system, so the bottom left corner of the area is defined by `X: 0` and `Y: 0`.
-* Locations of patches of oil, also defined by `X` and `Y` coordinates identifying the bottom left corner of those grid positions.
-* The initial cleaner position (X and Y coordinates like patches of oil)
-* Navigation instructions (as [cardinal directions](https://en.wikipedia.org/wiki/Cardinal_direction) where e.g. `N` and `E` mean "go north" and "go east" respectively)
-* The tide does not impact this simulation - the patches of oil remain in the same place throughout the execution of the program.
-* The area will be rectangular, has no obstacles and all locations in the area will be clean (cleaning has no effect) except for the locations of the patches of oil presented in the program input.
-* Navigating the cleaner onto a patch of oil removes the oil so that patch is then clean for the remainder of the program run. The cleaner is always on - there is no need to enable it.
-* In the program input attempts to navigate the cleaner outside of the boundary of the defined area an appropriate error should be returned.
+- [Overview](#overview)
+- [Setup](#setup)
+    - [Installing Java](#installing-java)
+    - [Installing Maven](#installing-maven)
+- [Running the Application](#running-the-application)
+    - [Additional Information](#additional-information)
 
-## Goal
 
-The goal of the service is to take the area dimensions, the locations of the oil patches, the initial location of the cleaner and the navigation instructions as input and to then output the following:
+## Overview
+This application is a Java based web service that navigates an imaginary robotic cleaner through an oil spill in the sea. It accepts JSON POST requests including an `areaSize`, `startingPosition`, list of `oilPatches`, and `navigationInstructions` to aid it during its journey. The app will then let you know where the cleaner has settled and how many spills its cleaned up along the way.
 
-* The final cleaner position (X, Y)
-* The number of patches of oil the robot cleaned up
+## Setup
+his repository contains a simple Java code base which uses Maven and SpringBoot to manage dependencies, build the project, and create a REST client.
+In order to run the application, you'll need the following, both of which need to be added to `PATH`:
+* Java 11 or higher (the application uses lambda functionality)
+* Apache Maven 3.x
 
-## Input
+Optionally, I have included a [Postman](https://www.getpostman.com/) collection which captures a number of testing scenarios. Feel free to download the application if you'd like to make use of it!
 
-Program input will be received in a JSON payload with the format described here.
+### Installing Java
+* **Via Oracle Website** - Download and instructions for all platforms [here](https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html).
+* **Via Package Managers** (I am a big fan of OpenJDK)
+  * *Mac* - 
+    ```
+    brew tap AdoptOpenJDK/openjdk
+    brew install adoptopenjdk11
+    ```
+  * *Debian, Ubuntu* -
+    `sudo apt-get install openjdk-11-jdk`
+  * *RHEL, Fedora, CentOS* -
+    `su -c "yum install java-1.11.0-openjdk"`
+  * *Arch* - You probably know what you're doing
+  * [More info](https://openjdk.java.net/install/)
+  
+### Installing Maven
+* **Via the Apache Website** - Installation info can be found [here](https://maven.apache.org/install.html), and a download [here](https://maven.apache.org/download.cgi)
+* **Via Package Managers**
+  * *Mac* - `brew install maven`
+  * *Debian, Ubuntu* -
+    `sudo apt install maven`
 
-Example:
+### Running the Application
+Once you've got things installed, running the application is relatively straightforward. Spring boot exposes `/api/cleaner`, so your request should by default target `localhost:8080/api/cleaner`
 
-```json
-{
-  "areaSize" : [5, 5],
-  "startingPosition" : [1, 2],
-  "oilPatches" : [
-    [1, 0],
-    [2, 2],
-    [2, 3]
-  ],
-  "navigationInstructions" : "NNESEESWNWW"
-}
-```
-
-## Output
-
-Service output should be returned as JSON.
-
-Example (matching the input above):
-
-```json
-{
-  "finalPosition" : [1, 3],
-  "oilPatchesCleaned" : 1
-}
-```
-Where `coords` are the final coordinates of the cleaner and `patches` is the number of cleaned patches.
-
-## Deliverable
-
-The service:
-
-* is a web service
-* must run on Mac OS X or Linux (x86-64)
-* must be written using Java 8 or later using Spring Boot
-* can make use of any existing open source libraries that don't directly address the problem statement (use your best judgement).
-
-We require:
-
-* The full source code, including any code written which is not part of the normal program run (scripts, tests).
-* Clear instructions on how to build and run the program.
-* Please provide any deliverables and instructions using a public Github (or similar) repository rather than ZIP files, emails and so on.
-
-## Evaluation
-
-We will especially consider:
-
-* Code organisation
-* Quality
-* Readability
-* Actually solving of the problem
-
-This test is based on the following gist https://gist.github.com/alirussell/9a519e07128b7eafcb50
+To enable, simply:
+* `mvn clean install`
+* Ensure `localhost:8080`, the default Tomcat port, is not in use.
+* `mvn spring-boot:run`
+* Submit your POST request:
+  * Via Postman
+  * Via Curl: `curl --header "Content-Type: application/json" -d "{yourVeryLongJSONRequestHere}" http://localhost:8080/api/cleaner`
+  * Requests should follow the following format:
+    ```json
+    {
+      "areaSize" : [5, 5],
+      "startingPosition" : [1, 2],
+      "oilPatches" : [
+        [1, 0],
+        [2, 2],
+        [2, 3]
+      ],
+      "navigationInstructions" : "NNESEESWNWW"
+    }
+    ```
+  * Output from above yields:
+    ```json
+    {
+      "finalPosition" : [1, 3],
+      "oilPatchesCleaned" : 1
+    }
+    ```
+### Additional Information
+The application contains unit tests written in Spock, a testing framework for Java and Groovy. By default, the test results compile with the rest of the application, but you can view the test results alone by running `mvn test`, or by running them in an IDE of your choice.
